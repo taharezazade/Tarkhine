@@ -1,7 +1,19 @@
+import CopyRight from "./components/CopyRight";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import HomeAbout from "./components/HomeAbout";
+import MenuResturant from "./components/MenuResturant";
+
 function App() {
   return (
-    <div>
-      <h1 className="text-emerald-500 text-2xl font-black">سلام</h1>
+    <div className="p-5 mx-auto">
+      <Header />
+      <Hero />
+      <MenuResturant />
+      <HomeAbout />
+      <Footer />
+      <CopyRight />
     </div>
   );
 }

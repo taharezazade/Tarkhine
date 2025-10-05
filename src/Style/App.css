@@ -1,5 +1,9 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark;
+  themes: black --default, light --prefersdark;
 }
 @import "./fonts.css";
+
+* {
+  font-family: SFProDisplay, sans-serif;
+}

@@ -26,8 +26,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# Fonts
-/public/fonts
 
 
 # Temporary files
