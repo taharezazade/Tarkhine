@@ -1,4 +1,4 @@
-import { Cake, Instagram, Send2, Whatsapp } from "iconsax-reactjs";
+import { Instagram, Send2, Whatsapp } from "iconsax-reactjs";
 import { LuGlassWater, LuDessert } from "react-icons/lu";
 
 function EasyAccess() {
