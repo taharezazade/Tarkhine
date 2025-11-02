@@ -1,9 +1,9 @@
 function About() {
   return (
     <div>
-      <Helmet>
+      <helmet>
         <title>About</title>
-      </Helmet>
+      </helmet>
       <h1>About</h1>
     </div>
   );

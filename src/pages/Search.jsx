@@ -1,9 +1,9 @@
 function Search() {
   return (
     <div>
-      <Helmet>
+      <helmet>
         <title>Search Food</title>
-      </Helmet>
+      </helmet>
       <section className="profile-section flex items-center justify-center">
         <h1>Search Food</h1>
       </section>

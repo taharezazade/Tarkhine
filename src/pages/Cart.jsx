@@ -1,9 +1,9 @@
 function Cart() {
   return (
     <div>
-      <Helmet>
+      <helmet>
         <title>Cart</title>
-      </Helmet>
+      </helmet>
       <h1>Cart</h1>
     </div>
   );

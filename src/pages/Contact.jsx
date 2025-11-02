@@ -1,9 +1,9 @@
 function Contact() {
   return (
     <div>
-      <Helmet>
+      <helmet>
         <title>Contact</title>
-      </Helmet>
+      </helmet>
       <h1>Contact</h1>
     </div>
   );

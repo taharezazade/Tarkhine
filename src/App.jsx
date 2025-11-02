@@ -5,6 +5,8 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import HomeAbout from "./components/HomeAbout";
 import MenuResturant from "./components/MenuResturant";
+import SignInForm from "./components/SignInForm";
+import LoginForm from "./components/LoginForm";
 
 // Pages
 import Menu from "./pages/Menu";
@@ -36,6 +38,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/SignInForm" element={<SignInForm />} />
+          <Route path="/LoginForm" element={<LoginForm />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/search" element={<Search />} />
         </Routes>

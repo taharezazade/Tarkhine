@@ -1,9 +1,9 @@
 function Menu() {
   return (
     <div>
-      <Helmet>
+      <helmet>
         <title>Menu</title>
-      </Helmet>
+      </helmet>
       <h1>Menu</h1>
     </div>
   );

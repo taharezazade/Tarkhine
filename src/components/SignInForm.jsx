@@ -1,108 +1,129 @@
 import { useState } from "react";
+import { Eye, EyeSlash, Sms, Lock, Google } from "iconsax-react";
+import { Link } from "react-router";
 
-import { Typography, Input, Button } from "@material-tailwind/react";
-import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
+export default function SignInForm() {
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
-export function SignInForm() {
-  const [passwordShown, setPasswordShown] = useState(false);
-  const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
+  const togglePassword = () => setPasswordVisible((prev) => !prev);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Sign In Submitted");
+  };
 
   return (
-    <section className="grid text-center h-screen items-center p-8">
-      <div>
-        <Typography variant="h3" color="blue-gray" className="mb-2">
+    <section className="flex items-center justify-center my-4">
+      <div className="w-full max-w-md bg-neutral-900 rounded-2xl p-6">
+        {/* Title */}
+        <h2 className="text-3xl font-semibold text-emerald-400 text-start mb-2">
           Sign In
-        </Typography>
-        <Typography className="mb-16 text-gray-600 font-normal text-[18px]">
-          Enter your email and password to sign in
-        </Typography>
-        <form action="#" className="mx-auto max-w-[24rem] text-left">
-          <div className="mb-6">
-            <label htmlFor="email">
-              <Typography
-                variant="small"
-                className="mb-2 block font-medium text-gray-900">
-                Your Email
-              </Typography>
-            </label>
-            <Input
-              id="email"
-              color="gray"
-              size="lg"
-              type="email"
-              name="email"
-              placeholder="name@mail.com"
-              className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-              labelProps={{
-                className: "hidden",
-              }}
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password">
-              <Typography
-                variant="small"
-                className="mb-2 block font-medium text-gray-900">
+        </h2>
+        <p className="text-gray-400 text-start mb-8">
+          Enter your email and password to access your account
+        </p>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex flex-col md:flex-row gap-4 items-center">
+            {/* Email */}
+            <div className="w-full">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-300 mb-2">
+                Email
+              </label>
+              <div className="relative">
+                <Sms
+                  size="20"
+                  className="absolute left-3 top-3.5 text-gray-400"
+                  variant="Outline"
+                />
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  placeholder="you@example.com"
+                  className="w-full pl-10 pr-4 py-3 rounded-lg bg-neutral-700 text-gray-100 placeholder-gray-500 border border-neutral-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 outline-none transition"
+                />
+              </div>
+            </div>
+
+            {/* Password */}
+            <div className="w-full">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-300 mb-2">
                 Password
-              </Typography>
-            </label>
-            <Input
-              size="lg"
-              placeholder="********"
-              labelProps={{
-                className: "hidden",
-              }}
-              className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-              type={passwordShown ? "text" : "password"}
-              icon={
-                <i onClick={togglePasswordVisiblity}>
-                  {passwordShown ? (
-                    <EyeIcon className="h-5 w-5" />
+              </label>
+              <div className="relative">
+                <Lock
+                  size="20"
+                  className="absolute left-3 top-3.5 text-gray-400"
+                  variant="Outline"
+                />
+                <input
+                  id="password"
+                  type={passwordVisible ? "text" : "password"}
+                  required
+                  placeholder="••••••••"
+                  className="w-full pl-10 pr-10 py-3 rounded-lg bg-neutral-700 text-gray-100 placeholder-gray-500 border border-neutral-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 outline-none transition"
+                />
+                <button
+                  type="button"
+                  onClick={togglePassword}
+                  className="absolute right-3 top-3 text-gray-400 hover:text-emerald-400 transition">
+                  {passwordVisible ? (
+                    <Eye size="20" variant="Outline" />
                   ) : (
-                    <EyeSlashIcon className="h-5 w-5" />
+                    <EyeSlash size="20" variant="Outline" />
                   )}
-                </i>
-              }
-            />
+                </button>
+              </div>
+            </div>
           </div>
-          <Button color="gray" size="lg" className="mt-6" fullWidth>
-            sign in
-          </Button>
-          <div className="!mt-4 flex justify-end">
-            <Typography
-              as="a"
+
+          {/* Forgot password */}
+          <div className="text-right">
+            <a
               href="#"
-              color="blue-gray"
-              variant="small"
-              className="font-medium">
-              Forgot password
-            </Typography>
-          </div>
-          <Button
-            variant="outlined"
-            size="lg"
-            className="mt-6 flex h-12 items-center justify-center gap-2"
-            fullWidth>
-            <img
-              src={`https://www.material-tailwind.com/logos/logo-google.png`}
-              alt="google"
-              className="h-6 w-6"
-            />{" "}
-            sign in with google
-          </Button>
-          <Typography
-            variant="small"
-            color="gray"
-            className="!mt-4 text-center font-normal">
-            Not registered?{" "}
-            <a href="#" className="font-medium text-gray-900">
-              Create account
+              className="text-sm text-emerald-400 hover:text-emerald-300 transition">
+              Forgot password?
             </a>
-          </Typography>
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full py-3 bg-emerald-600 text-emerald-950 font-normal rounded-lg transition">
+            Sign In
+          </button>
+
+          {/* Divider */}
+          <span className="divider">or continue with</span>
+
+          {/* Social Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button
+              type="button"
+              onClick={() => console.log("Sign in with Google")}
+              className="flex items-center justify-center w-full gap-3 py-3 border border-neutral-600 rounded-lg hover:bg-neutral-700 transition">
+              <Google size="20" variant="Bold" color="#EA4335" />
+              <span className="text-gray-200">Google</span>
+            </button>
+          </div>
+
+          {/* Register */}
+          <p className="text-center text-gray-400 text-sm mt-6">
+            You Registered?{" "}
+            <Link
+              to="/LoginForm"
+              className="text-emerald-400 hover:text-emerald-300 font-medium transition">
+              Login to account
+            </Link>
+          </p>
         </form>
       </div>
     </section>
   );
 }
-
-export default SignInForm;

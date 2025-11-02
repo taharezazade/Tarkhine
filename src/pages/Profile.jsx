@@ -3,9 +3,9 @@ import SignInForm from "../components/SignInForm";
 function Profile() {
   return (
     <div>
-      <Helmet>
+      <helmet>
         <title>Profile</title>
-      </Helmet>
+      </helmet>
       <SignInForm />
     </div>
   );

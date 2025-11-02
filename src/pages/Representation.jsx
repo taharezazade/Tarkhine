@@ -1,9 +1,9 @@
 function Representation() {
   return (
     <div>
-      <Helmet>
+      <helmet>
         <title>Representation</title>
-      </Helmet>
+      </helmet>
       <h1>Representation</h1>
     </div>
   );
