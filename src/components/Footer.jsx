@@ -4,22 +4,22 @@ import { useState } from "react";
 
 const MenuFooterIconData = [
   {
-    icon: <LuGlassWater size="28" color="#00bc7d" />,
+    icon: <LuGlassWater size="28" color="#ff7d5d" />,
     label: "Drinks",
     Route: "/Drinks",
   },
   {
-    icon: <LuDessert size="28" color="#00bc7d" />,
+    icon: <LuDessert size="28" color="#ff7d5d" />,
     label: "Desert",
     Route: "/Desert",
   },
   {
-    icon: <LuSalad size="28" color="#00bc7d" />,
+    icon: <LuSalad size="28" color="#ff7d5d" />,
     label: "Appetizer",
     Route: "/Appetizer",
   },
   {
-    icon: <LuPizza size="28" color="#00bc7d" />,
+    icon: <LuPizza size="28" color="#ff7d5d" />,
     label: "Main course",
     Route: "/Main-course",
   },
@@ -28,16 +28,16 @@ const MenuFooterIconData = [
 function EasyAccess() {
   return (
     <div className="w-full items-start md:w-fit justify-center">
-      <h3 className="font-bold pb-2 text-xl text-emerald-500">Easy Access</h3>
-      <nav className="flex flex-col gap-0.5 text-white/70">
+      <h3 className="font-bold pb-2 text-xl text-secondary">Easy Access</h3>
+      <nav className="flex flex-col gap-0.5 font-light text-white/70">
         <a href="#">Your questions</a>
         <a href="#">Tarkhineh Rules</a>
         <a href="#">Privacy</a>
       </nav>
       <div className="mt-1.5 gap-1 flex flex-row items-start justify-start">
-        <Instagram />
-        <Send2 />
-        <Whatsapp />
+        <Instagram color="#ff7d5d" />
+        <Send2 color="#ff7d5d" />
+        <Whatsapp color="#ff7d5d" />
       </div>
     </div>
   );
@@ -46,12 +46,12 @@ function EasyAccess() {
 function MenuFooter() {
   return (
     <div className="w-full items-start md:w-fit justify-center">
-      <h3 className="font-bold pb-2 text-xl text-emerald-500">Menu</h3>
+      <h3 className="font-bold pb-2 text-xl text-secondary">Menu</h3>
       <nav className="font-medium text-lg gap-2 flex flex-col">
         {MenuFooterIconData.map((item) => (
           <a
             key={item.label}
-            className="items-start justify-sitems-start flex gap-1"
+            className="items-start text-white/70 justify-start font-light flex gap-1"
             href={item.Route}>
             {item.icon}
             {item.label}
@@ -91,7 +91,7 @@ function FormComments() {
           <input
             type="text"
             placeholder="First Name"
-            className="input input-md rounded-lg focus:outline-0 focus:border-2 focus:border-emerald-500 duration-150 transition-all"
+            className="input input-md rounded-lg focus:outline-0 focus:border-2 focus:border-secondary duration-150 transition-all"
           />
         </label>
         <label className="floating-label">
@@ -99,7 +99,7 @@ function FormComments() {
           <input
             type="text"
             placeholder="Last Name"
-            className="input input-md rounded-lg focus:outline-0 focus:border-2 focus:border-emerald-500 duration-150 transition-all"
+            className="input input-md rounded-lg focus:outline-0 focus:border-2 focus:border-secondary duration-150 transition-all"
           />
         </label>
         <label className="floating-label">
@@ -107,7 +107,7 @@ function FormComments() {
           <input
             type="email"
             placeholder="mail@site.com"
-            className="input input-md rounded-lg focus:outline-0 focus:border-2 focus:border-emerald-500 duration-150 transition-all"
+            className="input input-md rounded-lg focus:outline-0 focus:border-2 focus:border-secondary duration-150 transition-all"
           />
         </label>
       </div>
@@ -117,9 +117,9 @@ function FormComments() {
           <textarea
             value={comment}
             onInput={handleInput}
-            className="textarea h-20 focus:outline-0 focus:border-2 focus:border-emerald-500 duration-150 transition-all resize-none rounded-lg w-full"
+            className="textarea h-20 focus:outline-0 focus:border-2 focus:border-secondary duration-150 transition-all resize-none rounded-lg w-full"
             placeholder="Your Comments"></textarea>
-          <p className="text-xs text-gray-500 mt-1 text-right">
+          <p className="text-xs text-secondary mt-1 text-right">
             {wordCount} / {maxWords} words
           </p>
         </div>
@@ -142,7 +142,7 @@ function SubmitComment() {
 
 function Footer() {
   return (
-    <div className="bg-[url(/image/Footer.png)] md:p-6 md:justify-between md:flex-row p-4 rounded-2xl gap-4 flex flex-col bg-black bg-blend-luminosity my-4 h-fit bg-center bg-cover">
+    <div className="bg-[url(/image/Footer.png)] md:p-6 md:justify-between md:flex-row p-4 rounded-2xl gap-6 flex flex-col bg-black bg-blend-luminosity my-4 h-fit bg-center bg-cover">
       <EasyAccess />
       <MenuFooter />
       <SubmitComment />

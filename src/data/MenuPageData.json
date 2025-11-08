@@ -1,0 +1,130 @@
+[
+  {
+    "id": 1,
+    "name": "Classic Cheeseburger",
+    "description": "Juicy beef patty with cheddar cheese, lettuce, tomato, onion, and house sauce in a sesame bun.",
+    "category": "Burgers",
+    "price": 9.99,
+    "currency": "USD",
+    "isAvailable": true,
+    "image": "/image/Classic Cheeseburger.jpg",
+    "rating": 4.6,
+    "ingredients": [
+      "Beef",
+      "Cheddar",
+      "Lettuce",
+      "Tomato",
+      "Onion",
+      "Bun",
+      "Sauce"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Margherita Pizza",
+    "description": "Classic Italian pizza topped with fresh mozzarella, basil leaves, and tomato sauce.",
+    "category": "Pizza",
+    "price": 12.5,
+    "currency": "USD",
+    "isAvailable": true,
+    "image": "/image/margarita pizza.jpg",
+    "rating": 4.8,
+    "ingredients": ["Flour", "Mozzarella", "Tomato Sauce", "Basil", "Olive Oil"]
+  },
+  {
+    "id": 3,
+    "name": "Spaghetti Carbonara",
+    "description": "Italian pasta with creamy sauce, crispy bacon, and parmesan cheese.",
+    "category": "Pasta",
+    "price": 10.75,
+    "currency": "USD",
+    "isAvailable": true,
+    "image": "/image/Spaghetti Carbonara.jpg",
+    "rating": 4.7,
+    "ingredients": ["Spaghetti", "Bacon", "Egg", "Parmesan", "Cream", "Pepper"]
+  },
+  {
+    "id": 4,
+    "name": "Caesar Salad",
+    "description": "Fresh romaine lettuce with Caesar dressing, croutons, and grated parmesan.",
+    "category": "Salads",
+    "price": 7.5,
+    "currency": "USD",
+    "isAvailable": true,
+    "image": "/image/Caesar Salad.jpg",
+    "rating": 4.4,
+    "ingredients": ["Lettuce", "Croutons", "Parmesan", "Caesar Dressing"]
+  },
+  {
+    "id": 5,
+    "name": "Chicken Shawarma Wrap",
+    "description": "Grilled chicken, garlic sauce, pickles, and fries wrapped in warm pita bread.",
+    "category": "Sandwiches",
+    "price": 8.25,
+    "currency": "USD",
+    "isAvailable": true,
+    "image": "https://images.unsplash.com/photo-1590080875830-bb3b1bd5c1a9?w=800",
+    "rating": 4.5,
+    "ingredients": ["Chicken", "Pita", "Garlic Sauce", "Pickles", "Fries"]
+  },
+  {
+    "id": 6,
+    "name": "Beef Steak",
+    "description": "Grilled ribeye steak served with mashed potatoes, vegetables, and pepper sauce.",
+    "category": "Main Course",
+    "price": 19.99,
+    "currency": "USD",
+    "isAvailable": true,
+    "image": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=800",
+    "rating": 4.9,
+    "ingredients": ["Beef", "Mashed Potatoes", "Carrots", "Pepper Sauce"]
+  },
+  {
+    "id": 7,
+    "name": "Grilled Salmon",
+    "description": "Fresh salmon fillet grilled with lemon butter sauce and served with rice.",
+    "category": "Seafood",
+    "price": 17.5,
+    "currency": "USD",
+    "isAvailable": true,
+    "image": "https://images.unsplash.com/photo-1613145993482-3bdb9c42e4ab?w=800",
+    "rating": 4.8,
+    "ingredients": ["Salmon", "Butter", "Lemon", "Rice"]
+  },
+  {
+    "id": 8,
+    "name": "Chocolate Lava Cake",
+    "description": "Rich chocolate cake with a molten chocolate center, served with vanilla ice cream.",
+    "category": "Desserts",
+    "price": 6.5,
+    "currency": "USD",
+    "isAvailable": true,
+    "image": "https://images.unsplash.com/photo-1605470207062-1d655b278f52?w=800",
+    "rating": 4.9,
+    "ingredients": ["Chocolate", "Flour", "Eggs", "Sugar", "Vanilla Ice Cream"]
+  },
+  {
+    "id": 9,
+    "name": "Mango Smoothie",
+    "description": "Fresh mango blended with yogurt and honey for a creamy tropical drink.",
+    "category": "Drinks",
+    "price": 4.25,
+    "currency": "USD",
+    "isAvailable": true,
+    "image": "https://images.unsplash.com/photo-1604908177070-956edc1b21f8?w=800",
+    "rating": 4.6,
+    "ingredients": ["Mango", "Yogurt", "Honey", "Ice"]
+  },
+  {
+    "id": 10,
+    "name": "French Fries",
+    "description": "Crispy golden fries with a side of ketchup or cheese dip.",
+    "category": "Sides",
+    "price": 3.99,
+    "currency": "USD",
+    "isAvailable": true,
+    "image": "https://images.unsplash.com/photo-1541592106381-f3e06cc4b9af?w=800",
+    "rating": 4.3,
+    "ingredients": ["Potatoes", "Salt", "Oil"]
+  }
+]

@@ -50,7 +50,7 @@ function MenuRestaurant() {
   return (
     <div className="h-fit w-full mt-5">
       <p className="text-4xl items-center font-light justify-center flex md:pb-4">
-        <p className="text-emerald-500 font-black inline">Our</p>&nbsp;Menu
+        <p className="text-secondary font-black inline">Our</p>&nbsp;Menu
       </p>
       <div className="md:flex md:flex-row items-center grid-cols-1 justify-between md:w-11/12 w-full gap-4 mx-auto">
         {MiniMenuRestaurantData.map((item) => (

@@ -8,7 +8,7 @@ function Hero() {
         <div className="container mx-auto md:w-full sm:px-6 md:px-10">
           <div className="w-full text-start">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
-              Welcome to <span className="text-emerald-500">Tarkhineh</span>{" "}
+              Welcome to <span className="text-secondary">Tarkhineh</span>{" "}
               Restaurant.
             </h2>
 
@@ -23,7 +23,7 @@ function Hero() {
 
             <button
               className="mt-5 inline-flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 
-                         bg-emerald-600 hover:bg-emerald-700 text-white font-semibold 
+                         bg-secondary hover:bg-secondary-focus text-white font-semibold 
                          rounded-xl text-sm sm:text-base transition-all">
               Go to More{" "}
               <ArrowCircleRight2 variant="Linear" color="#fff" size={20} />

@@ -13,10 +13,11 @@ export default function LoginForm() {
   };
 
   return (
-    <section className="flex items-center justify-center my-4">
-      <div className="w-full max-w-md bg-neutral-900 rounded-2xl p-6">
+    <section className="flex flex-col-reverse lg:flex-row items-center justify-center gap-8 lg:gap-16 my-8 px-4">
+      {/* Form Section */}
+      <div className="w-full max-w-md bg-base-300 rounded-2xl p-6 shadow-lg">
         {/* Title */}
-        <h2 className="text-3xl font-semibold text-emerald-400 text-start mb-2">
+        <h2 className="text-3xl font-semibold text-secondary text-start mb-2">
           Login
         </h2>
         <p className="text-gray-400 text-start mb-8">
@@ -44,7 +45,7 @@ export default function LoginForm() {
                   type="email"
                   required
                   placeholder="you@example.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-lg bg-neutral-700 text-gray-100 placeholder-gray-500 border border-neutral-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 outline-none transition"
+                  className="w-full pl-10 pr-4 py-3 rounded-lg bg-neutral-700 text-gray-100 placeholder-gray-500 border border-neutral-600 focus:border-secondary focus:ring-2 focus:ring-secondary outline-none transition"
                 />
               </div>
             </div>
@@ -67,12 +68,12 @@ export default function LoginForm() {
                   type={passwordVisible ? "text" : "password"}
                   required
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-10 py-3 rounded-lg bg-neutral-700 text-gray-100 placeholder-gray-500 border border-neutral-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 outline-none transition"
+                  className="w-full pl-10 pr-10 py-3 rounded-lg bg-neutral-700 text-gray-100 placeholder-gray-500 border border-neutral-600 focus:border-secondary focus:ring-2 focus:ring-secondary outline-none transition"
                 />
                 <button
                   type="button"
                   onClick={togglePassword}
-                  className="absolute right-3 top-3 text-gray-400 hover:text-emerald-400 transition">
+                  className="absolute right-3 top-3 text-gray-400 hover:text-secondary transition">
                   {passwordVisible ? (
                     <Eye size="20" variant="Outline" />
                   ) : (
@@ -87,7 +88,7 @@ export default function LoginForm() {
           <div className="text-right">
             <a
               href="#"
-              className="text-sm text-emerald-400 hover:text-emerald-300 transition">
+              className="text-sm text-secondary hover:text-secondary transition">
               Forgot password?
             </a>
           </div>
@@ -95,14 +96,12 @@ export default function LoginForm() {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full py-3 bg-emerald-600 text-emerald-950 font-normal rounded-lg transition">
+            className="w-full py-3 bg-secondary text-secondary-content font-normal rounded-lg transition">
             Login
           </button>
 
           {/* Divider */}
-          <span className="divider text-gray-400 block text-center my-4">
-            or continue with
-          </span>
+          <span className="divider">or continue with</span>
 
           {/* Social Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
@@ -120,12 +119,19 @@ export default function LoginForm() {
             Not registered yet?{" "}
             <Link
               to="/SignInForm"
-              className="text-emerald-400 hover:text-emerald-300 font-medium transition">
+              className="text-secondary hover:text-secondary font-medium transition">
               Create an account
             </Link>
           </p>
         </form>
       </div>
+
+      {/* Image Section */}
+      <img
+        src="/image/Login.svg"
+        alt="Login"
+        className="w-full sm:w-2/3 md:w-1/2 lg:w-[420px] xl:w-[480px] max-w-full rounded-2xl mb-6 lg:mb-0"
+      />
     </section>
   );
 }

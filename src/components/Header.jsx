@@ -25,17 +25,17 @@ function MenuBar({ isOpen }) {
       className={`${
         isOpen ? "flex" : "hidden"
       } md:flex flex-col md:flex-row items-start justify-center gap-4 md:gap-6 
-      absolute md:static top-16 left-0 w-full md:w-auto bg-neutral-800 
+      absolute md:static top-16 left-0 w-full md:w-auto bg-base-300 
       rounded-2xl md:bg-transparent p-4 md:p-0 z-30 transition-all`}>
-      <ul className="text-emerald-600 flex flex-col md:flex-row items-left justify-center gap-3">
+      <ul className="text-secondary border-secondary flex flex-col md:flex-row items-left justify-center gap-3">
         {menuItems.map((item) => (
           <li key={item.id}>
             <Link
               to={item.href}
               className={`p-1 text-base md:text-sm lg:text-base transition-colors border-b-2 ${
                 location.pathname === item.href
-                  ? "border-emerald-500 text-emerald-400"
-                  : "border-transparent hover:border-emerald-400 hover:text-emerald-400"
+                  ? "border-secondary text-secondary"
+                  : "border-transparent hover:border-secondary hover:text-secondary"
               }`}>
               {item.label}
             </Link>
@@ -48,17 +48,17 @@ function MenuBar({ isOpen }) {
         <Link
           to="/profile"
           className="rounded-xl bg-neutral-700 hover:bg-neutral-600 p-2 transition">
-          <User variant="Bold" color="#00bc7d" size="22" />
+          <User variant="Bold" color="#ff7d5d" size="22" />
         </Link>
         <Link
           to="/cart"
           className="rounded-xl bg-neutral-700 hover:bg-neutral-600 p-2 transition">
-          <Bag2 variant="Bold" color="#00bc7d" size="22" />
+          <Bag2 variant="Bold" color="#ff7d5d" size="22" />
         </Link>
         <Link
           to="/search"
-          className="flex items-center justify-center gap-2 rounded-xl bg-neutral-700 hover:bg-neutral-600 px-3 py-2 transition text-emerald-400">
-          <SearchNormal1 variant="Bold" color="#00bc7d" size="20" />
+          className="flex items-center justify-center gap-2 rounded-xl bg-neutral-700 hover:bg-neutral-600 px-3 py-2 transition text-secborder-secondary">
+          <SearchNormal1 variant="Bold" color="#ff7d5d" size="20" />
           <span className="text-sm">Search in Menu</span>
         </Link>
       </div>
@@ -81,7 +81,7 @@ function Header() {
   }, [location.pathname]);
 
   return (
-    <header className="rounded-2xl w-full mx-auto bg-neutral-800 flex flex-row items-center justify-between p-2 md:p-3 relative z-40">
+    <header className="rounded-2xl w-full mx-auto bg-base-300 flex flex-row items-center justify-between p-2 md:p-3 relative z-40">
       {/* Logo */}
       <Link to="/">
         <img
@@ -96,9 +96,9 @@ function Header() {
         onClick={() => setIsOpen(!isOpen)}
         className="md:hidden p-2 rounded-xl bg-neutral-700 hover:bg-neutral-600 z-50">
         {isOpen ? (
-          <CloseSquare variant="Linear" color="#00bc7d" />
+          <CloseSquare variant="Linear" color="#ff7d5d" />
         ) : (
-          <HamburgerMenu variant="Linear" color="#00bc7d" />
+          <HamburgerMenu variant="Linear" color="#ff7d5d" />
         )}
       </button>
 
@@ -114,18 +114,18 @@ function Header() {
       <div className="hidden md:flex flex-row-reverse gap-2 md:gap-3 lg:gap-4">
         <Link
           to="/profile"
-          className="rounded-xl bg-neutral-700 hover:bg-neutral-600 p-2 md:p-2.5 lg:p-3 transition">
-          <User variant="Bold" color="#00bc7d" size="22" />
+          className="rounded-xl bg-base-100 hover:bg-neutral-600 p-2 md:p-2.5 lg:p-3 transition">
+          <User variant="Bold" color="#ff7d5d" size="22" />
         </Link>
         <Link
           to="/cart"
-          className="rounded-xl bg-neutral-700 hover:bg-neutral-600 p-2 md:p-2.5 lg:p-3 transition">
-          <Bag2 variant="Bold" color="#00bc7d" size="22" />
+          className="rounded-xl bg-base-100 hover:bg-neutral-600 p-2 md:p-2.5 lg:p-3 transition">
+          <Bag2 variant="Bold" color="#ff7d5d" size="22" />
         </Link>
         <Link
-          to="/menu"
-          className="rounded-xl bg-neutral-700 hover:bg-neutral-600 p-2 md:p-2.5 lg:p-3 transition">
-          <SearchNormal1 variant="Bold" color="#00bc7d" size="22" />
+          to="/search"
+          className="rounded-xl bg-base-100 hover:bg-neutral-600 p-2 md:p-2.5 lg:p-3 transition">
+          <SearchNormal1 variant="Bold" color="#ff7d5d" size="22" />
         </Link>
       </div>
     </header>
