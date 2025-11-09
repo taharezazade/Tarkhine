@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { Eye, EyeSlash, Sms, Lock, Google } from "iconsax-react";
 import { Link } from "react-router";
 
-// IMPORTANT: replace this with your OAuth 2.0 Client ID from Google Cloud Console
 const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
 const GOOGLE_SCOPES = "openid email profile";
 
@@ -13,7 +12,6 @@ export default function SignInForm() {
   const [message, setMessage] = useState("");
   const tokenClientRef = useRef(null);
 
-  // Load saved form values from localStorage once on mount
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("local_user") || "null");
     if (saved) {
@@ -22,7 +20,6 @@ export default function SignInForm() {
     }
   }, []);
 
-  // Dynamically load Google Identity Services client
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -62,7 +59,6 @@ export default function SignInForm() {
           }
 
           try {
-            // Use the access token to fetch user info
             const res = await fetch(
               "https://www.googleapis.com/oauth2/v3/userinfo",
               {
@@ -92,11 +88,9 @@ export default function SignInForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Save form data to localStorage (you may want to hash passwords in a real app)
     const localUser = { email, password };
     localStorage.setItem("local_user", JSON.stringify(localUser));
 
-    // also keep a list of local accounts (like a simple users database)
     const users = JSON.parse(localStorage.getItem("users") || "[]");
     const exists = users.find((u) => u.email === email && !u.provider);
     if (!exists) {
@@ -115,7 +109,6 @@ export default function SignInForm() {
     console.log("Sign In Submitted", localUser);
   };
 
-  // When Google button clicked, open the account chooser (select_account)
   const handleGoogleClick = () => {
     setMessage("");
     if (!tokenClientRef.current) {
@@ -123,13 +116,10 @@ export default function SignInForm() {
       return;
     }
 
-    // prompt: 'select_account' will show the account chooser if multiple accounts exist
     tokenClientRef.current.requestAccessToken({ prompt: "select_account" });
   };
 
-  // Create or update a user entry in localStorage from Google's profile
   function createOrUpdateLocalAccountFromGoogle(profile, accessToken) {
-    // profile contains fields like sub (id), email, name, picture, etc.
     const users = JSON.parse(localStorage.getItem("users") || "[]");
 
     const googleUser = {

@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 export default function FoodCard({ food }) {
   return (
     <Link
-      to={`/menu/${food.name}`}
+      to={`/menu/${encodeURIComponent(food.name.replace(/\s+/g, "-"))}`}
       className="bg-base-300 rounded-2xl shadow-lg p-2 flex flex-col items-start justify-between transition hover:scale-[1.02] hover:shadow-xl">
       {/* Image */}
       <div className="w-full h-48 rounded-xl overflow-hidden mb-4">
         <img
           src={food.image}
           alt={food.name}
-          className="w-full h-full object-cover filter grayscale hover:grayscale-0 hover:scale-110 transition duration-500 ease-in-out"
+          className="w-full h-full object-cover object-center filter grayscale hover:grayscale-0 transition duration-500 ease-in-out"
         />
       </div>
 

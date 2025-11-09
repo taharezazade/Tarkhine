@@ -1,6 +1,7 @@
 import { Instagram, Send2, Whatsapp } from "iconsax-reactjs";
 import { LuGlassWater, LuDessert, LuPizza, LuSalad } from "react-icons/lu";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const MenuFooterIconData = [
   {
@@ -30,9 +31,9 @@ function EasyAccess() {
     <div className="w-full items-start md:w-fit justify-center">
       <h3 className="font-bold pb-2 text-xl text-secondary">Easy Access</h3>
       <nav className="flex flex-col gap-0.5 font-light text-white/70">
-        <a href="#">Your questions</a>
-        <a href="#">Tarkhineh Rules</a>
-        <a href="#">Privacy</a>
+        <Link to="#">Your questions</Link>
+        <Link to="#">Tarkhineh Rules</Link>
+        <Link to="#">Privacy</Link>
       </nav>
       <div className="mt-1.5 gap-1 flex flex-row items-start justify-start">
         <Instagram color="#ff7d5d" />
@@ -49,13 +50,13 @@ function MenuFooter() {
       <h3 className="font-bold pb-2 text-xl text-secondary">Menu</h3>
       <nav className="font-medium text-lg gap-2 flex flex-col">
         {MenuFooterIconData.map((item) => (
-          <a
+          <Link
             key={item.label}
             className="items-start text-white/70 justify-start font-light flex gap-1"
-            href={item.Route}>
+            to={item.Route}>
             {item.icon}
             {item.label}
-          </a>
+          </Link>
         ))}
       </nav>
     </div>
@@ -64,7 +65,7 @@ function MenuFooter() {
 
 function FormComments() {
   const [comment, setComment] = useState("");
-  const maxWords = 200;
+  const maxWords = 20;
 
   const handleInput = (e) => {
     let words = e.target.value
@@ -120,7 +121,7 @@ function FormComments() {
             className="textarea h-20 focus:outline-0 focus:border-2 focus:border-secondary duration-150 transition-all resize-none rounded-lg w-full"
             placeholder="Your Comments"></textarea>
           <p className="text-xs text-secondary mt-1 text-right">
-            {wordCount} / {maxWords} words
+            {wordCount} / {maxWords} Line
           </p>
         </div>
         <button className="btn-secondary btn btn-sm p-3 text-white rounded-lg">

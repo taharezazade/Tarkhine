@@ -7,8 +7,6 @@ import HomeAbout from "./components/HomeAbout";
 import MenuResturant from "./components/MenuResturant";
 import SignInForm from "./components/SignInForm";
 import LoginForm from "./components/LoginForm";
-
-// Pages
 import Menu from "./pages/Menu";
 import Representation from "./pages/Representation";
 import About from "./pages/About";
@@ -16,10 +14,21 @@ import Contact from "./pages/Contact";
 import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
 import Search from "./pages/Search";
+import { Helmet } from "react-helmet";
+import useCurrentPath from "./Hooks/useCurrentPath";
+import FoodDetail from "./pages/FoodDetail";
 
-function App() {
+import { CartProvider } from "./Context/CartContext";
+
+function AppContent() {
+  const { title } = useCurrentPath();
+
   return (
-    <Router>
+    <>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
+
       <div className="p-5 mx-auto">
         <Header />
         <Routes>
@@ -34,6 +43,7 @@ function App() {
             }
           />
           <Route path="/menu" element={<Menu />} />
+          <Route path="/menu/:foodName" element={<FoodDetail />} />
           <Route path="/representation" element={<Representation />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
@@ -46,7 +56,17 @@ function App() {
         <Footer />
         <CopyRight />
       </div>
-    </Router>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <CartProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </CartProvider>
   );
 }
 

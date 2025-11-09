@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, dim --prefersdark;
+  themes: dim --default, dim --prefersdark;
+  root: ":root";
+  include: ;
+  exclude: ;
+  prefix: ;
+  logs: true;
 }
 @import "./fonts.css";
 

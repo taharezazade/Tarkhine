@@ -1,0 +1,11 @@
+# Force all text files to use LF in the repo
+* text=auto
+
+# Specifically for CSS, JS, JSX, TS, TSX, JSON, HTML
+*.css text
+*.js text
+*.jsx text
+*.ts text
+*.tsx text
+*.json text
+*.html text

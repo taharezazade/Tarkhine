@@ -4,7 +4,6 @@ function Hero() {
   return (
     <section className="relative w-full mt-5">
       <div className="bg-[url('/image/Slider.png')] bg-black p-5 bg-blend-luminosity bg-cover bg-center rounded-2xl flex items-center h-fit md:h-96 lg:h-[30rem]">
-        {/* container برای محدود کردن عرض */}
         <div className="container mx-auto md:w-full sm:px-6 md:px-10">
           <div className="w-full text-start">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">

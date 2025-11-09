@@ -63,7 +63,7 @@
     "price": 8.25,
     "currency": "USD",
     "isAvailable": true,
-    "image": "https://images.unsplash.com/photo-1590080875830-bb3b1bd5c1a9?w=800",
+    "image": "/image/Chicken Shawarma Wrap.jpg",
     "rating": 4.5,
     "ingredients": ["Chicken", "Pita", "Garlic Sauce", "Pickles", "Fries"]
   },
@@ -75,7 +75,7 @@
     "price": 19.99,
     "currency": "USD",
     "isAvailable": true,
-    "image": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=800",
+    "image": "/image/Beef Steak.jpg",
     "rating": 4.9,
     "ingredients": ["Beef", "Mashed Potatoes", "Carrots", "Pepper Sauce"]
   },
@@ -87,7 +87,7 @@
     "price": 17.5,
     "currency": "USD",
     "isAvailable": true,
-    "image": "https://images.unsplash.com/photo-1613145993482-3bdb9c42e4ab?w=800",
+    "image": "/image/Grilled Salmon.jpg",
     "rating": 4.8,
     "ingredients": ["Salmon", "Butter", "Lemon", "Rice"]
   },
@@ -99,7 +99,7 @@
     "price": 6.5,
     "currency": "USD",
     "isAvailable": true,
-    "image": "https://images.unsplash.com/photo-1605470207062-1d655b278f52?w=800",
+    "image": "/image/Chocolate Lava Cake.jpg",
     "rating": 4.9,
     "ingredients": ["Chocolate", "Flour", "Eggs", "Sugar", "Vanilla Ice Cream"]
   },
@@ -111,7 +111,7 @@
     "price": 4.25,
     "currency": "USD",
     "isAvailable": true,
-    "image": "https://images.unsplash.com/photo-1604908177070-956edc1b21f8?w=800",
+    "image": "/image/Mango Smoothie.jpg",
     "rating": 4.6,
     "ingredients": ["Mango", "Yogurt", "Honey", "Ice"]
   },
@@ -123,7 +123,7 @@
     "price": 3.99,
     "currency": "USD",
     "isAvailable": true,
-    "image": "https://images.unsplash.com/photo-1541592106381-f3e06cc4b9af?w=800",
+    "image": "/image/French Fries.jpg",
     "rating": 4.3,
     "ingredients": ["Potatoes", "Salt", "Oil"]
   }
