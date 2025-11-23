@@ -18,6 +18,7 @@ export default function FoodCard({ food }) {
       {/* Content */}
       <div className="flex flex-col gap-2 w-full">
         <h3 className="text-lg font-semibold text-secondary">{food.name}</h3>
+
         <p className="text-gray-400 text-sm line-clamp-2">{food.description}</p>
 
         <div className="flex items-center justify-between mt-3">

@@ -1,18 +1,62 @@
 import { useParams, Link } from "react-router-dom";
-import MenuPageData from "../data/MenuPageData.json";
-import { Card } from "iconsax-react";
 import { LuArrowLeft } from "react-icons/lu";
+import { Card } from "iconsax-react";
+import { useEffect, useState } from "react";
 import { useCart } from "../Context/CartContext";
 
 function FoodDetail() {
   const { foodName } = useParams();
   const { addToCart, cartItems } = useCart();
+  const [food, setFood] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const formattedName = decodeURIComponent(foodName.replace(/-/g, " "));
-  const food = MenuPageData.find(
-    (item) => item.name.toLowerCase() === formattedName.toLowerCase()
-  );
-  const isInCart = cartItems.some((item) => item.id === food?.id);
+
+  useEffect(() => {
+    fetch(
+      `https://www.themealdb.com/api/json/v1/1/search.php?s=${formattedName}`
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        if (!json.meals || json.meals.length === 0) {
+          setFood(null);
+          setLoading(false);
+          return;
+        }
+
+        const meal = json.meals[0];
+
+        const ingredients = [];
+        for (let i = 1; i <= 20; i++) {
+          const ing = meal[`strIngredient${i}`];
+          if (ing) ingredients.push(ing);
+        }
+
+        const mealData = {
+          id: meal.idMeal,
+          name: meal.strMeal,
+          image: meal.strMealThumb,
+          description:
+            meal.strInstructions?.slice(0, 300) + "..." ||
+            "This meal has no description available.",
+          category: meal.strCategory,
+          rating: Math.floor(Math.random() * 5) + 1,
+          price: Math.floor(Math.random() * 200) + 100,
+          ingredients,
+        };
+
+        setFood(mealData);
+        setLoading(false);
+      });
+  }, [formattedName]);
+
+  if (loading) {
+    return (
+      <div className="py-20 text-center text-xl font-semibold text-white/70">
+        Loading...
+      </div>
+    );
+  }
 
   if (!food) {
     return (
@@ -27,20 +71,26 @@ function FoodDetail() {
     );
   }
 
+  const isInCart = cartItems.some((item) => item.id === food.id);
+
   return (
-    <div className="px-4 sm:px-10 md:px-20 py-4">
+    <div className="sm:px-10 md:px-10 py-4">
       <div className="flex flex-col lg:flex-row gap-6">
         <img
           src={food.image}
           alt={food.name}
-          className="w-full lg:w-1/2 rounded-xl shadow-lg object-cover"
+          className="w-full h-86 lg:w-1/3 rounded-xl shadow-lg object-cover"
         />
+
         <div className="flex-1 flex flex-col gap-4">
           <h1 className="text-3xl font-bold text-[#ff7d5d]">{food.name}</h1>
+
           <p className="text-white/60">{food.description}</p>
+
           <p className="font-semibold">Category: {food.category}</p>
           <p className="font-semibold">Price: ${food.price.toFixed(2)}</p>
 
+          {/* Rating */}
           <div className="flex items-center gap-1">
             {Array.from({ length: 5 }, (_, i) => (
               <span
@@ -55,6 +105,7 @@ function FoodDetail() {
             ))}
           </div>
 
+          {/* Ingredients */}
           <div className="flex flex-wrap gap-2 mt-2">
             {food.ingredients.map((ing, idx) => (
               <span key={idx} className="badge badge-outline cursor-pointer">
@@ -63,10 +114,11 @@ function FoodDetail() {
             ))}
           </div>
 
+          {/* Add to Cart */}
           <button
             className={`btn mt-4 ${
               isInCart ? "btn-disabled" : "btn-success"
-            } w-full`}
+            } w-full lg:w-56`}
             onClick={() => addToCart(food)}
             disabled={isInCart}>
             <Card

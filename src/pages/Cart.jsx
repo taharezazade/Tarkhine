@@ -57,7 +57,6 @@ function Cart() {
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-        {/* لیست آیتم‌ها */}
         <div className="md:col-span-8 flex flex-col gap-4">
           {cartItems.map((item) => (
             <div
@@ -99,7 +98,6 @@ function Cart() {
           ))}
         </div>
 
-        {/* سایدبار جمع کل */}
         <div className="md:col-span-4 flex flex-col gap-4 bg-base-300 p-6 rounded-xl shadow-md h-fit">
           <h2 className="text-xl font-semibold text-[#ff7d5d] mb-4">
             Order Summary

@@ -19,6 +19,7 @@ import useCurrentPath from "./Hooks/useCurrentPath";
 import FoodDetail from "./pages/FoodDetail";
 
 import { CartProvider } from "./Context/CartContext";
+import CheckOut from "./pages/CheckOut";
 
 function AppContent() {
   const { title } = useCurrentPath();
@@ -51,6 +52,7 @@ function AppContent() {
           <Route path="/SignInForm" element={<SignInForm />} />
           <Route path="/LoginForm" element={<LoginForm />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<CheckOut />} />
           <Route path="/search" element={<Search />} />
         </Routes>
         <Footer />
