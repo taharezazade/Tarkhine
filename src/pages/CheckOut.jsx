@@ -22,7 +22,7 @@ export default function Checkout() {
       ) : (
         <div className="flex flex-col lg:flex-row gap-8">
           {/* LEFT SIDE – ITEMS */}
-          <div className="flex-1 bg-base-300 p-4 rounded-xl shadow-lg">
+          <div className="flex-1 bg-base-300 p-4 h-fit rounded-xl shadow-lg">
             <h2 className="text-xl font-semibold mb-4">Your Items</h2>
 
             <div className="flex flex-col gap-4">

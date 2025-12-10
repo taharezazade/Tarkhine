@@ -53,6 +53,7 @@ function FoodDetail() {
   if (loading) {
     return (
       <div className="py-20 text-center text-xl font-semibold text-white/70">
+        <span className="loading loading-ring loading-sm mr-2"></span>
         Loading...
       </div>
     );
