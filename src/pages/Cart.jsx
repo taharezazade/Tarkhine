@@ -1,33 +1,46 @@
 import { useCart } from "../Context/CartContext";
 import { Link } from "react-router-dom";
 import { LuTrash2 } from "react-icons/lu";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Cart() {
   const { cartItems, setCartItems } = useCart();
 
-  // حذف یک آیتم از سبد
   const removeItem = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+    try {
+      const removedItem = cartItems.find((item) => item.id === id);
+      setCartItems(cartItems.filter((item) => item.id !== id));
+      toast.success(`${removedItem.name} removed from cart.`);
+    } catch {
+      toast.error("Failed to remove item from cart.");
+    }
   };
 
-  // افزایش تعداد
   const increaseQty = (id) => {
-    setCartItems(
-      cartItems.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
+    try {
+      setCartItems(
+        cartItems.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        )
+      );
+    } catch {
+      toast.error("Failed to increase quantity.");
+    }
   };
 
-  // کاهش تعداد
   const decreaseQty = (id) => {
-    setCartItems(
-      cartItems.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
+    try {
+      setCartItems(
+        cartItems.map((item) =>
+          item.id === id && item.quantity > 1
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+      );
+    } catch {
+      toast.error("Failed to decrease quantity.");
+    }
   };
 
   const totalPrice = cartItems.reduce(
@@ -46,12 +59,14 @@ function Cart() {
           className="inline-block text-white bg-[#ff7d5d] px-6 py-2 rounded-lg font-medium hover:bg-[#ff5a3d] transition">
           Browse Menu
         </Link>
+        <ToastContainer position="top-right" autoClose={3000} />
       </div>
     );
   }
 
   return (
     <div className="px-1 sm:px-6 md:px-4 py-8">
+      <ToastContainer position="top-right" autoClose={3000} />
       <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-[#ff7d5d]">
         Your Cart
       </h1>

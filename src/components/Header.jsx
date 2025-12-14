@@ -7,7 +7,8 @@ import {
 } from "iconsax-reactjs";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useCart } from "../Context/CartContext"; // استفاده از Context کارت
+import { useCart } from "../Context/CartContext";
+import { useUser } from "../Context/UserContext";
 
 const menuItems = [
   { id: 1, label: "Home", href: "/" },
@@ -24,7 +25,7 @@ function CartIcon() {
   return (
     <Link
       to="/cart"
-      className="relative rounded-xl bg-neutral-700 hover:bg-neutral-600 p-2 transition">
+      className="relative rounded-xl bg-base-100 hover:bg-base-200 min-w-12 flex items-center justify-center transition">
       <Bag2 variant="Bold" color="#ff7d5d" size="22" />
       {cartCount > 0 && (
         <span className="absolute -top-1 -right-1 bg-red-500 text-white w-5 h-5 flex items-center justify-center rounded-full text-xs">
@@ -35,7 +36,7 @@ function CartIcon() {
   );
 }
 
-function MenuBar({ isOpen }) {
+function MenuBar({ isOpen, user }) {
   const location = useLocation();
 
   return (
@@ -64,14 +65,14 @@ function MenuBar({ isOpen }) {
       {/* منوی آیکون‌ها در موبایل */}
       <div className="flex md:hidden flex-row justify-start gap-3 mt-4 w-full">
         <Link
-          to="/profile"
-          className="rounded-xl bg-neutral-700 hover:bg-neutral-600 p-2 transition">
+          to={user ? "/profilePage" : "/profile"}
+          className="rounded-xl bg-base-100 hover:bg-base-200 p-2 transition">
           <User variant="Bold" color="#ff7d5d" size="22" />
         </Link>
         <CartIcon />
         <Link
           to="/search"
-          className="flex items-center justify-center gap-2 rounded-xl bg-neutral-700 hover:bg-neutral-600 px-3 py-2 transition">
+          className="flex items-center justify-center gap-2 rounded-xl bg-base-100 hover:bg-base-200 px-3 py-2 transition">
           <SearchNormal1 variant="Bold" color="#ff7d5d" size="20" />
           <span className="text-sm text-[#ff7d5d] ">Search in Menu</span>
         </Link>
@@ -81,6 +82,7 @@ function MenuBar({ isOpen }) {
 }
 
 function Header() {
+  const { user } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -109,7 +111,7 @@ function Header() {
       {/* دکمه باز/بستن منوی موبایل */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden p-2 rounded-xl bg-neutral-700 hover:bg-neutral-600 z-50">
+        className="md:hidden p-2 rounded-xl bg-base-100 hover:bg-base-200 z-50">
         {isOpen ? (
           <CloseSquare variant="Linear" color="#ff7d5d" />
         ) : (
@@ -117,22 +119,25 @@ function Header() {
         )}
       </button>
 
-      {/* بک‌دراپ هنگام باز بودن منو */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-md z-10"></div>
       )}
 
-      {/* آیکون‌ها در دسکتاپ */}
       <div className="hidden md:flex flex-row-reverse gap-2 md:gap-3 lg:gap-4">
         <Link
-          to="/profile"
-          className="rounded-xl bg-base-100 hover:bg-neutral-600 p-2 md:p-2.5 lg:p-3 transition">
+          to={user ? "/profilePage" : "/profile"}
+          className="rounded-xl flex flex-row gap-2 bg-base-100 hover:bg-base-200 p-2 md:p-2.5 lg:p-3 transition">
           <User variant="Bold" color="#ff7d5d" size="22" />
+          {user && (
+            <span className="hidden md:inline-block text-secondary font-medium">
+              Hi, {user.name}
+            </span>
+          )}
         </Link>
         <CartIcon />
         <Link
           to="/search"
-          className="rounded-xl bg-base-100 hover:bg-neutral-600 p-2 md:p-2.5 lg:p-3 transition">
+          className="rounded-xl bg-base-100 hover:bg-base-200 p-2 md:p-2.5 lg:p-3 transition">
           <SearchNormal1 variant="Bold" color="#ff7d5d" size="22" />
         </Link>
       </div>
