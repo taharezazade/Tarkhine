@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { FilterSquare, Home2, MenuBoard } from "iconsax-react";
-import { Sort, TickSquare } from "iconsax-reactjs";
 import { Link } from "react-router-dom";
 import FoodCard from "../components/FoodCard";
 import AOS from "aos";
-import "aos/dist/aos.css"; // حتما CSS مربوطه import شود
+import "aos/dist/aos.css";
+import { Filter } from "iconsax-reactjs";
 
 const Breadcrumbs = [
   {
@@ -31,17 +31,6 @@ const Breadcrumbs = [
     label: "Menu",
     to: "/menu",
   },
-  {
-    icon: (
-      <TickSquare
-        className="inline-block"
-        color="#ff7d5d"
-        variant="TwoTone"
-        size="20"
-      />
-    ),
-    label: "Select Menu Item",
-  },
 ];
 
 function Menu() {
@@ -49,12 +38,11 @@ function Menu() {
   const [sortBy, setSortBy] = useState("name");
   const [filterBy, setFilterBy] = useState("All");
 
-  // مقداردهی AOS
   useEffect(() => {
     AOS.init({
-      duration: 800, // مدت زمان انیمیشن
+      duration: 800,
       easing: "ease-out-cubic",
-      once: true, // فقط یکبار در لود شدن نمایش داده شود
+      once: true,
     });
   }, []);
 
@@ -102,7 +90,8 @@ function Menu() {
               {Breadcrumbs.map((item) => (
                 <li
                   key={item.label}
-                  className="text-[#ff7d5d] inline-flex items-center gap-2">
+                  className="text-[#ff7d5d] inline-flex items-center gap-2"
+                >
                   {item.icon}
                   {item.to ? (
                     <Link to={item.to} className="hover:underline font-medium">
@@ -122,7 +111,7 @@ function Menu() {
           {/* Sort */}
           <div className="flex items-center justify-between gap-2 w-full md:w-auto">
             <span className="text-base sm:text-lg font-light">
-              <Sort
+              <Filter
                 className="inline-block"
                 color="#ff7d5d"
                 size="24"
@@ -133,7 +122,8 @@ function Menu() {
             <select
               className="select w-40 border-[#ff7d5d] rounded-lg p-2"
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}>
+              onChange={(e) => setSortBy(e.target.value)}
+            >
               <option value="name">Name</option>
               <option value="price">Price</option>
               <option value="rating">Rating</option>
@@ -154,7 +144,8 @@ function Menu() {
             <select
               className="select w-40 border-[#ff7d5d] rounded-lg p-2"
               value={filterBy}
-              onChange={(e) => setFilterBy(e.target.value)}>
+              onChange={(e) => setFilterBy(e.target.value)}
+            >
               <option value="All">All</option>
               <option value="Beef">Beef</option>
               <option value="Chicken">Chicken</option>

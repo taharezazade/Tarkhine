@@ -1,4 +1,3 @@
-// Context/CartContext.jsx
 import { createContext, useState, useEffect, useContext } from "react";
 
 export const CartContext = createContext();
@@ -48,16 +47,22 @@ export function CartProvider({ children }) {
     );
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem("cartItems");
+  };
+
   return (
     <CartContext.Provider
       value={{
         cartItems,
-        setCartItems,
         addToCart,
         removeFromCart,
         increaseQty,
         decreaseQty,
-      }}>
+        clearCart,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

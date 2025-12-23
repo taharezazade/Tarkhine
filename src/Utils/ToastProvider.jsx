@@ -1,51 +1,49 @@
-import { ToastContainer, toast, Slide } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// toastUtils.js
+import toast, { Toaster } from "react-hot-toast";
 
 // Success Toast
 export const showSuccessToast = (message) => {
   toast.success(message, {
-    className: "rounded-2xl",
+    style: {
+      borderRadius: "12px",
+      background: "#333",
+      color: "#fff",
+      padding: "16px",
+    },
     position: "top-center",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "dark",
-    transition: Slide,
+    duration: 3000,
   });
 };
 
 // Error Toast
 export const showErrorToast = (message) => {
   toast.error(message, {
-    className: "rounded-2xl",
+    style: {
+      borderRadius: "12px",
+      background: "#333",
+      color: "#fff",
+      padding: "16px",
+    },
     position: "top-center",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "dark",
-    transition: Slide,
+    duration: 3000,
   });
 };
 
 // Info Toast
 export const showInfoToast = (message) => {
-  toast.info(message, {
-    className: "rounded-2xl",
+  toast(message, {
+    style: {
+      borderRadius: "12px",
+      background: "#333",
+      color: "#fff",
+      padding: "16px",
+    },
     position: "top-center",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "dark",
-    transition: Slide,
+    duration: 3000,
   });
 };
 
+// Toaster Component
 export default function ToastProvider() {
-  return <ToastContainer />;
+  return <Toaster />;
 }

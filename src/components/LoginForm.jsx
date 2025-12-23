@@ -1,22 +1,39 @@
 import { useState } from "react";
 import { Eye, EyeSlash, Lock, Sms, Google } from "iconsax-react";
 import { Link } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function LoginForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const togglePassword = () => setPasswordVisible((prev) => !prev);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login Submitted");
+
+    if (!email.trim() || !password.trim()) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    if (!email.includes("@")) {
+      toast.error("Invalid email format");
+      return;
+    }
+
+    // شبیه‌سازی درخواست لاگین
+    toast.success("Login submitted successfully!");
+    console.log("Email:", email, "Password:", password);
   };
 
   return (
     <section className="flex flex-col-reverse lg:flex-row items-center justify-center gap-8 lg:gap-16 my-8 px-4">
+      <Toaster position="top-right" />
+
       {/* Form Section */}
       <div className="w-full max-w-md bg-base-300 rounded-2xl p-6 shadow-lg">
-        {/* Title */}
         <h2 className="text-3xl font-semibold text-secondary text-start mb-2">
           Login
         </h2>
@@ -24,14 +41,14 @@ export default function LoginForm() {
           Enter your credentials to login to your account
         </p>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex flex-col md:flex-row gap-4 items-center">
             {/* Email */}
             <div className="w-full">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-300 mb-2">
+                className="block text-sm font-medium text-gray-300 mb-2"
+              >
                 Email
               </label>
               <div className="relative">
@@ -45,6 +62,8 @@ export default function LoginForm() {
                   type="email"
                   required
                   placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 rounded-lg bg-neutral-700 text-gray-100 placeholder-gray-500 border border-neutral-600 focus:border-secondary focus:ring-2 focus:ring-secondary outline-none transition"
                 />
               </div>
@@ -54,7 +73,8 @@ export default function LoginForm() {
             <div className="w-full">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-300 mb-2">
+                className="block text-sm font-medium text-gray-300 mb-2"
+              >
                 Password
               </label>
               <div className="relative">
@@ -68,12 +88,15 @@ export default function LoginForm() {
                   type={passwordVisible ? "text" : "password"}
                   required
                   placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="w-full pl-10 pr-10 py-3 rounded-lg bg-neutral-700 text-gray-100 placeholder-gray-500 border border-neutral-600 focus:border-secondary focus:ring-2 focus:ring-secondary outline-none transition"
                 />
                 <button
                   type="button"
                   onClick={togglePassword}
-                  className="absolute right-3 top-3 text-gray-400 hover:text-secondary transition">
+                  className="absolute right-3 top-3 text-gray-400 hover:text-secondary transition"
+                >
                   {passwordVisible ? (
                     <Eye size="20" variant="Outline" />
                   ) : (
@@ -86,17 +109,19 @@ export default function LoginForm() {
 
           {/* Forgot password */}
           <div className="text-right">
-            <a
-              href="#"
-              className="text-sm text-secondary hover:text-secondary transition">
+            <Link
+              to="/forgot-Password"
+              className="text-sm text-secondary hover:text-secondary transition"
+            >
               Forgot password?
-            </a>
+            </Link>
           </div>
 
           {/* Submit */}
           <button
             type="submit"
-            className="w-full py-3 bg-secondary text-secondary-content font-normal rounded-lg transition">
+            className="w-full py-3 bg-secondary text-secondary-content font-normal rounded-lg transition"
+          >
             Login
           </button>
 
@@ -107,9 +132,10 @@ export default function LoginForm() {
           <div className="flex flex-col sm:flex-row gap-4">
             <button
               type="button"
-              onClick={() => console.log("Login with Google")}
-              className="flex items-center justify-center w-full gap-3 py-3 border border-neutral-600 rounded-lg hover:bg-neutral-700 transition">
-              <Google size="20" variant="Bold" color="#EA4335" />
+              onClick={() => toast("Login with Google")}
+              className="flex items-center justify-center w-full gap-3 py-3 border border-neutral-600 rounded-lg hover:bg-neutral-700 transition"
+            >
+              <Google size="20" variant="Bulk" color="#EA4335" />
               <span className="text-gray-200">Google</span>
             </button>
           </div>
@@ -119,7 +145,8 @@ export default function LoginForm() {
             Not registered yet?{" "}
             <Link
               to="/SignInForm"
-              className="text-secondary hover:text-secondary font-medium transition">
+              className="text-secondary hover:text-secondary font-medium transition"
+            >
               Create an account
             </Link>
           </p>

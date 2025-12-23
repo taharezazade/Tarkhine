@@ -3,14 +3,16 @@ import { LuArrowLeft } from "react-icons/lu";
 import { Card } from "iconsax-react";
 import { useEffect, useState } from "react";
 import { useCart } from "../Context/CartContext";
-import { showErrorToast, showSuccessToast } from "../Utils/ToastProvider";
+import { useFavorite } from "../Context/FavoriteContext";
+import toast, { Toaster } from "react-hot-toast";
+import { HeartAdd, Home2, MenuBoard, TickSquare } from "iconsax-reactjs";
 
 function FoodDetail() {
   const { foodName } = useParams();
   const { addToCart, cartItems } = useCart();
   const [food, setFood] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const { addToFavorite, isFavorite, removeFromFavorite } = useFavorite();
   const formattedName = decodeURIComponent(foodName.replace(/-/g, " "));
 
   useEffect(() => {
@@ -29,7 +31,7 @@ function FoodDetail() {
 
         if (!json.meals || json.meals.length === 0) {
           setFood(null);
-          showErrorToast("Food not found.");
+          toast.error("Food not found.", { position: "top-center" });
           return;
         }
 
@@ -56,7 +58,9 @@ function FoodDetail() {
         setFood(mealData);
       } catch (err) {
         setFood(null);
-        showErrorToast(err.message || "An unexpected error occurred.");
+        toast.error(err.message || "An unexpected error occurred.", {
+          position: "top-center",
+        });
       } finally {
         setLoading(false);
       }
@@ -93,19 +97,102 @@ function FoodDetail() {
   }
 
   const isInCart = cartItems.some((item) => item.id === food.id);
+  const favoriteStatus = isFavorite(food.id);
+
+  const handleAddToFavorite = () => {
+    if (!food) return;
+
+    if (favoriteStatus) {
+      removeFromFavorite(food.id);
+      toast.success(`${food.name} removed from favorites.`, {
+        position: "top-center",
+      });
+    } else {
+      if (addToFavorite(food)) {
+        toast.success(`${food.name} added to favorites!`, {
+          position: "top-center",
+        });
+      } else {
+        toast.error(`${food.name} is already in favorites.`, {
+          position: "top-center",
+        });
+      }
+    }
+  };
 
   const handleAddToCart = () => {
     try {
       addToCart(food);
-      showSuccessToast(`${food.name} has been added to your cart.`);
+      toast.success(`${food.name} has been added to your cart.`, {
+        position: "top-center",
+      });
     } catch {
-      showErrorToast("Failed to add item to cart.");
+      toast.error("Failed to add item to cart.", { position: "top-center" });
     }
   };
 
+  const Breadcrumbs = [
+    {
+      icon: (
+        <Home2
+          className="inline-block"
+          color="#ff7d5d"
+          variant="TwoTone"
+          size="20"
+        />
+      ),
+      label: "Home",
+      to: "/",
+    },
+    {
+      icon: (
+        <MenuBoard
+          className="inline-block"
+          color="#ff7d5d"
+          variant="TwoTone"
+          size="20"
+        />
+      ),
+      label: "Menu",
+      to: "/menu",
+    },
+    {
+      icon: (
+        <TickSquare
+          className="inline-block"
+          color="#ff7d5d"
+          variant="TwoTone"
+          size="20"
+        />
+      ),
+      label: food.name,
+    },
+  ];
+
   return (
     <div className="sm:px-10 md:px-10 py-4">
-      <div className="flex flex-col lg:flex-row gap-6">
+      <Toaster />
+      <div className="breadcrumbs text-sm">
+        <ul className="flex flex-wrap gap-2">
+          {Breadcrumbs.map((item) => (
+            <li
+              key={item.label}
+              className="text-[#ff7d5d] inline-flex items-center gap-2"
+            >
+              {item.icon}
+              {item.to ? (
+                <Link to={item.to} className="hover:underline font-medium">
+                  {item.label}
+                </Link>
+              ) : (
+                <span>{item.label}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="flex flex-col lg:flex-row gap-6 mt-4">
         <img
           src={food.image}
           alt={food.name}
@@ -126,7 +213,8 @@ function FoodDetail() {
                   i < Math.round(food.rating)
                     ? "text-yellow-400"
                     : "text-white/40"
-                }>
+                }
+              >
                 ★
               </span>
             ))}
@@ -140,24 +228,42 @@ function FoodDetail() {
             ))}
           </div>
 
-          <button
-            className={`btn mt-4 ${
-              isInCart ? "btn-disabled" : "btn-success"
-            } w-full lg:w-56`}
-            onClick={handleAddToCart}
-            disabled={isInCart}>
-            <Card
-              className="inline-block mr-2"
-              color="#252525"
-              size="24"
-              variant="Bold"
-            />
-            {isInCart ? "Added to Cart" : "Add to Cart"}
-          </button>
+          <div className="flex gap-4">
+            <button
+              className={`btn ${
+                isInCart ? "btn-disabled" : "btn-success"
+              } w-full lg:w-44`}
+              onClick={handleAddToCart}
+              disabled={isInCart}
+            >
+              <Card
+                className="inline-block mr-2"
+                color="#252525"
+                size="24"
+                variant="Bold"
+              />
+              {isInCart ? "Added to Cart" : "Add to Cart"}
+            </button>
+            <button
+              className={`btn w-full lg:w-44 ${
+                favoriteStatus ? "btn-success" : "btn-error btn-soft"
+              }`}
+              onClick={handleAddToFavorite}
+            >
+              <HeartAdd
+                variant={favoriteStatus ? "Bold" : "Outline"}
+                className="inline-block mr-1"
+                size={20}
+                fill={favoriteStatus ? "currentColor" : "none"}
+              />
+              {favoriteStatus ? "Remove Favorite" : "Add to Favorites"}
+            </button>
+          </div>
 
           <Link
             to="/menu"
-            className="inline-block font-light w-fit text-white p-2 rounded-lg btn btn-ghost transition mt-2">
+            className="inline-block font-light w-fit text-white p-2 rounded-lg btn btn-ghost transition mt-2"
+          >
             <LuArrowLeft className="inline-block mr-1" size={20} />
             Back to Menu
           </Link>

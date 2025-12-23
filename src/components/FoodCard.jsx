@@ -5,8 +5,10 @@ export default function FoodCard({ food }) {
   return (
     <Link
       to={`/menu/${encodeURIComponent(food.name.replace(/\s+/g, "-"))}`}
-      className="bg-base-300 rounded-2xl shadow-lg p-2 flex flex-col items-start justify-between transition hover:scale-[1.02] hover:shadow-xl">
+      className="bg-base-300 rounded-2xl shadow-lg p-2 flex flex-col items-start justify-between transition hover:scale-[1.02] hover:shadow-xl"
+    >
       {/* Image */}
+
       <div className="w-full h-48 rounded-xl overflow-hidden mb-4">
         <img
           src={food.image}

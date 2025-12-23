@@ -21,67 +21,86 @@ import FoodDetail from "./pages/FoodDetail";
 import CheckOut from "./pages/CheckOut";
 
 import { CartProvider } from "./Context/CartContext";
-import { UserProvider, useUser } from "./Context/UserContext";
+import { UserProvider } from "./Context/UserContext";
 
 import Success from "./pages/Success";
 import ErrorPage from "./pages/Error";
 import Pending from "./pages/Pending";
 import NotFound from "./pages/NotFound";
 
-import ToastProvider from "./Utils/ToastProvider";
+import { FavoriteProvider } from "./Context/FavoriteContext";
+import { OrderProvider } from "./Context/OrderContext";
+import HashGuard from "./components/Guard";
+import ForgotPassword from "./pages/ForgotPassword";
+import VerifyCode from "./pages/VerifyCode";
+import ResetPassword from "./pages/ResetPassword";
 
 function AppContent() {
   const { title } = useCurrentPath();
 
   return (
-    <UserProvider>
-      <Helmet>
-        <title>{title}</title>
-      </Helmet>
-      <div className="p-5 mx-auto">
-        <Header />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Hero />
-                <MenuResturant />
-                <HomeAbout />
-              </>
-            }
-          />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/menu/:foodName" element={<FoodDetail />} />
-          <Route path="/representation" element={<Representation />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/profile" element={<SignInOrLogin />} />
-          <Route path="/SignInForm" element={<SignInForm />} />
-          <Route path="/LoginForm" element={<LoginForm />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/profilePage" element={<Profile />} />
-          <Route path="/checkout" element={<CheckOut />} />
-          <Route path="/success" element={<Success />} />
-          <Route path="/error" element={<ErrorPage />} />
-          <Route path="/pending" element={<Pending />} />
-          <Route path="/404" element={<NotFound />} />
-          <Route path="/search" element={<Search />} />
-        </Routes>
-        <Footer />
-        <CopyRight />
-      </div>
-    </UserProvider>
+    <FavoriteProvider>
+      <UserProvider>
+        <Helmet>
+          <title>{title}</title>
+        </Helmet>
+        <div className="p-5 mx-auto">
+          <Header />
+
+          <HashGuard>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Hero />
+                    <MenuResturant />
+                    <HomeAbout />
+                  </>
+                }
+              />
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/menu/:foodName" element={<FoodDetail />} />
+              <Route path="/food/:foodName" element={<FoodDetail />} />
+              <Route path="/representation" element={<Representation />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/profile" element={<SignInOrLogin />} />
+              <Route path="/SignInForm" element={<SignInForm />} />
+              <Route path="/LoginForm" element={<LoginForm />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/profilePage" element={<Profile />} />
+              <Route path="/checkout" element={<CheckOut />} />
+              <Route path="/404" element={<NotFound />} />
+              <Route path="/success" element={<Success />} />
+              <Route path="/error" element={<ErrorPage />} />
+              <Route path="/pending" element={<Pending />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/forgot-Password" element={<ForgotPassword />} />
+              <Route path="/verify-code" element={<VerifyCode />} />
+
+              <Route path="/reset-password" element={<ResetPassword />} />
+              {/* 404 */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </HashGuard>
+          <Footer />
+          <CopyRight />
+        </div>
+      </UserProvider>
+    </FavoriteProvider>
   );
 }
 
 function App() {
   return (
-    <CartProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </CartProvider>
+    <OrderProvider>
+      <CartProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </CartProvider>
+    </OrderProvider>
   );
 }
 

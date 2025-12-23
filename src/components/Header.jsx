@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../Context/CartContext";
 import { useUser } from "../Context/UserContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const menuItems = [
   { id: 1, label: "Home", href: "/" },
@@ -22,10 +23,18 @@ function CartIcon() {
   const { cartItems } = useCart();
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
+  const handleClick = () => {
+    if (cartCount === 0) {
+      toast("Your cart is empty!", { icon: "🛒" });
+    }
+  };
+
   return (
     <Link
       to="/cart"
-      className="relative rounded-xl bg-base-100 hover:bg-base-200 min-w-12 flex items-center justify-center transition">
+      onClick={handleClick}
+      className="relative rounded-xl bg-base-100 hover:bg-base-200 min-w-12 flex items-center justify-center transition"
+    >
       <Bag2 variant="Bold" color="#ff7d5d" size="22" />
       {cartCount > 0 && (
         <span className="absolute -top-1 -right-1 bg-red-500 text-white w-5 h-5 flex items-center justify-center rounded-full text-xs">
@@ -45,7 +54,8 @@ function MenuBar({ isOpen, user }) {
         isOpen ? "flex" : "hidden"
       } md:flex flex-col md:flex-row items-start justify-center gap-4 md:gap-6
       absolute md:static top-16 left-0 w-full md:w-auto bg-base-300
-      rounded-2xl md:bg-transparent p-4 md:p-0 z-30 transition-all`}>
+      rounded-2xl md:bg-transparent p-4 md:p-0 z-30 transition-all`}
+    >
       <ul className="text-secondary border-secondary flex flex-col md:flex-row items-left justify-center gap-3">
         {menuItems.map((item) => (
           <li key={item.id}>
@@ -55,7 +65,8 @@ function MenuBar({ isOpen, user }) {
                 location.pathname === item.href
                   ? "border-secondary text-secondary"
                   : "border-transparent hover:border-secondary hover:text-secondary"
-              }`}>
+              }`}
+            >
               {item.label}
             </Link>
           </li>
@@ -66,13 +77,15 @@ function MenuBar({ isOpen, user }) {
       <div className="flex md:hidden flex-row justify-start gap-3 mt-4 w-full">
         <Link
           to={user ? "/profilePage" : "/profile"}
-          className="rounded-xl bg-base-100 hover:bg-base-200 p-2 transition">
+          className="rounded-xl bg-base-100 hover:bg-base-200 p-2 transition"
+        >
           <User variant="Bold" color="#ff7d5d" size="22" />
         </Link>
         <CartIcon />
         <Link
           to="/search"
-          className="flex items-center justify-center gap-2 rounded-xl bg-base-100 hover:bg-base-200 px-3 py-2 transition">
+          className="flex items-center justify-center gap-2 rounded-xl bg-base-100 hover:bg-base-200 px-3 py-2 transition"
+        >
           <SearchNormal1 variant="Bold" color="#ff7d5d" size="20" />
           <span className="text-sm text-[#ff7d5d] ">Search in Menu</span>
         </Link>
@@ -95,53 +108,59 @@ function Header() {
   }, [location.pathname]);
 
   return (
-    <header className="rounded-2xl w-full mx-auto bg-base-300 flex flex-row items-center justify-between p-2 md:p-3 relative z-40 shadow-md">
-      <div className="flex items-center gap-4">
-        <Link to="/">
-          <img
-            alt="Logo Tarkhine"
-            className="w-28 md:w-32 lg:w-40 cursor-pointer"
-            src="/image/Logo.png"
-          />
-        </Link>
-      </div>
+    <>
+      <Toaster />
+      <header className="rounded-2xl w-full mx-auto bg-base-300 flex flex-row items-center justify-between p-2 md:p-3 relative z-40 shadow-md">
+        <div className="flex items-center gap-4">
+          <Link to="/">
+            <img
+              alt="Logo Tarkhine"
+              className="w-28 md:w-32 lg:w-40 cursor-pointer"
+              src="/image/Logo.png"
+            />
+          </Link>
+        </div>
 
-      <MenuBar isOpen={isOpen} />
+        <MenuBar isOpen={isOpen} user={user} />
 
-      {/* دکمه باز/بستن منوی موبایل */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden p-2 rounded-xl bg-base-100 hover:bg-base-200 z-50">
-        {isOpen ? (
-          <CloseSquare variant="Linear" color="#ff7d5d" />
-        ) : (
-          <HamburgerMenu variant="Linear" color="#ff7d5d" />
-        )}
-      </button>
-
-      {isOpen && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-md z-10"></div>
-      )}
-
-      <div className="hidden md:flex flex-row-reverse gap-2 md:gap-3 lg:gap-4">
-        <Link
-          to={user ? "/profilePage" : "/profile"}
-          className="rounded-xl flex flex-row gap-2 bg-base-100 hover:bg-base-200 p-2 md:p-2.5 lg:p-3 transition">
-          <User variant="Bold" color="#ff7d5d" size="22" />
-          {user && (
-            <span className="hidden md:inline-block text-secondary font-medium">
-              Hi, {user.name}
-            </span>
+        {/* دکمه باز/بستن منوی موبایل */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden p-2 rounded-xl bg-base-100 hover:bg-base-200 z-50"
+        >
+          {isOpen ? (
+            <CloseSquare variant="Linear" color="#ff7d5d" />
+          ) : (
+            <HamburgerMenu variant="Linear" color="#ff7d5d" />
           )}
-        </Link>
-        <CartIcon />
-        <Link
-          to="/search"
-          className="rounded-xl bg-base-100 hover:bg-base-200 p-2 md:p-2.5 lg:p-3 transition">
-          <SearchNormal1 variant="Bold" color="#ff7d5d" size="22" />
-        </Link>
-      </div>
-    </header>
+        </button>
+
+        {isOpen && (
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-md z-10"></div>
+        )}
+
+        <div className="hidden md:flex flex-row-reverse gap-2 md:gap-3 lg:gap-4">
+          <Link
+            to={user ? "/profilePage" : "/profile"}
+            className="rounded-xl flex flex-row gap-2 bg-base-100 hover:bg-base-200 p-2 md:p-2.5 lg:p-3 transition"
+          >
+            <User variant="Bold" color="#ff7d5d" size="22" />
+            {user && (
+              <span className="hidden md:inline-block text-secondary font-medium">
+                Hi, {user.name}
+              </span>
+            )}
+          </Link>
+          <CartIcon />
+          <Link
+            to="/search"
+            className="rounded-xl bg-base-100 hover:bg-base-200 p-2 md:p-2.5 lg:p-3 transition"
+          >
+            <SearchNormal1 variant="Bold" color="#ff7d5d" size="22" />
+          </Link>
+        </div>
+      </header>
+    </>
   );
 }
 

@@ -1,45 +1,57 @@
 import { useCart } from "../Context/CartContext";
 import { Link } from "react-router-dom";
 import { LuTrash2 } from "react-icons/lu";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Bag, Card, WalletCheck } from "iconsax-reactjs";
+import toast, { Toaster } from "react-hot-toast";
 
-function Cart() {
-  const { cartItems, setCartItems } = useCart();
+export default function Cart() {
+  const { cartItems, removeFromCart, increaseQty, decreaseQty, clearCart } =
+    useCart();
 
-  const removeItem = (id) => {
+  const notifySuccess = (msg) =>
+    toast.success(msg, {
+      position: "top-center",
+      style: {
+        borderRadius: "12px",
+        padding: "16px",
+        background: "#333",
+        color: "#fff",
+      },
+    });
+
+  const notifyError = (msg) =>
+    toast.error(msg, {
+      position: "top-center",
+      style: {
+        borderRadius: "12px",
+        padding: "16px",
+        background: "#333",
+        color: "#fff",
+      },
+    });
+
+  const handleRemove = (id, name) => {
     try {
-      const removedItem = cartItems.find((item) => item.id === id);
-      setCartItems(cartItems.filter((item) => item.id !== id));
-      toast.success(`${removedItem.name} removed from cart.`);
+      removeFromCart(id);
+      notifySuccess(`${name} removed from cart.`);
     } catch {
-      toast.error("Failed to remove item from cart.");
+      notifyError("Failed to remove item.");
     }
   };
 
-  const increaseQty = (id) => {
+  const handleIncrease = (id) => {
     try {
-      setCartItems(
-        cartItems.map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-        )
-      );
+      increaseQty(id);
     } catch {
-      toast.error("Failed to increase quantity.");
+      notifyError("Failed to increase quantity.");
     }
   };
 
-  const decreaseQty = (id) => {
+  const handleDecrease = (id) => {
     try {
-      setCartItems(
-        cartItems.map((item) =>
-          item.id === id && item.quantity > 1
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        )
-      );
+      decreaseQty(id);
     } catch {
-      toast.error("Failed to decrease quantity.");
+      notifyError("Failed to decrease quantity.");
     }
   };
 
@@ -56,27 +68,51 @@ function Cart() {
         </h1>
         <Link
           to="/menu"
-          className="inline-block text-white bg-[#ff7d5d] px-6 py-2 rounded-lg font-medium hover:bg-[#ff5a3d] transition">
+          className="inline-block text-white bg-[#ff7d5d] px-6 py-2 rounded-lg font-medium hover:bg-[#ff5a3d] transition"
+        >
           Browse Menu
         </Link>
-        <ToastContainer position="top-right" autoClose={3000} />
+        <Toaster />
       </div>
     );
   }
 
   return (
     <div className="px-1 sm:px-6 md:px-4 py-8">
-      <ToastContainer position="top-right" autoClose={3000} />
-      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-[#ff7d5d]">
-        Your Cart
-      </h1>
+      <Toaster />
+      <div className="flex flex-row items-center justify-between mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#ff7d5d]">
+          Your Cart
+        </h1>
+        <ul className="steps pb-6 flex-1">
+          <li className="step step-secondary w-56">
+            <span className="step-icon">
+              <Bag size={20} variant="Bulk" />
+            </span>{" "}
+            Cart
+          </li>
+          <li className="step step-natural">
+            <span className="step-icon">
+              <WalletCheck size={20} variant="Bulk" />
+            </span>{" "}
+            Check Out
+          </li>
+          <li className="step">
+            <span className="step-icon">
+              <Card size={20} variant="Bulk" />
+            </span>{" "}
+            Payment
+          </li>
+        </ul>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         <div className="md:col-span-8 flex flex-col gap-4">
           {cartItems.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col sm:flex-row items-center sm:items-start bg-base-300 rounded-xl p-4 gap-4 shadow-md">
+              className="flex flex-col sm:flex-row items-center sm:items-start bg-base-300 rounded-xl p-4 gap-4 shadow-md"
+            >
               <img
                 src={item.image}
                 alt={item.name}
@@ -91,20 +127,28 @@ function Cart() {
 
                 <div className="flex items-center gap-2 mt-2">
                   <button
-                    onClick={() => decreaseQty(item.id)}
-                    className="px-3 py-1 rounded-lg bg-neutral-700 hover:bg-neutral-600 transition font-semibold">
+                    onClick={() => handleDecrease(item.id)}
+                    className={`px-3 py-1 rounded-lg font-semibold transition ${
+                      item.quantity <= 1
+                        ? "bg-neutral-600 cursor-not-allowed"
+                        : "bg-neutral-700 hover:bg-neutral-600"
+                    }`}
+                    disabled={item.quantity <= 1}
+                  >
                     -
                   </button>
                   <span className="px-2">{item.quantity}</span>
                   <button
-                    onClick={() => increaseQty(item.id)}
-                    className="px-3 py-1 rounded-lg bg-neutral-700 hover:bg-neutral-600 transition font-semibold">
+                    onClick={() => handleIncrease(item.id)}
+                    className="px-3 py-1 rounded-lg bg-neutral-700 hover:bg-neutral-600 transition font-semibold"
+                  >
                     +
                   </button>
 
                   <button
-                    onClick={() => removeItem(item.id)}
-                    className="ml-auto text-red-500 hover:text-red-400 transition">
+                    onClick={() => handleRemove(item.id, item.name)}
+                    className="ml-auto text-red-500 hover:text-red-400 transition"
+                  >
                     <LuTrash2 size={20} />
                   </button>
                 </div>
@@ -128,7 +172,8 @@ function Cart() {
 
           <Link
             to="/checkout"
-            className="mt-4 w-full text-center bg-[#ff7d5d] text-white py-2 rounded-lg font-semibold hover:bg-[#ff5a3d] transition">
+            className="mt-4 w-full text-center bg-[#ff7d5d] text-white py-2 rounded-lg font-semibold hover:bg-[#ff5a3d] transition"
+          >
             Proceed to Checkout
           </Link>
         </div>
@@ -136,5 +181,3 @@ function Cart() {
     </div>
   );
 }
-
-export default Cart;

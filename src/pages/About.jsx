@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 import { ArrowRight2, Star1, Book, User, Cup } from "iconsax-react";
+import { Toaster, toast } from "react-hot-toast";
 
+// --- Data ---
 const experienceImagesData = [
   { src: "/image/Experience-Hero.jpg", alt: "experience hero" },
   { src: "/image/interior-restaurant-high.jpg", alt: "interior restaurant" },
@@ -51,6 +54,11 @@ const chefsData = [
   { name: "Pelican Steve", role: "Executive Chef", img: "/image/chef-3.jpg" },
 ];
 
+// --- Toast helpers ---
+const notifySuccess = (msg) => toast.success(msg, { position: "top-center" });
+const notifyError = (msg) => toast.error(msg, { position: "top-center" });
+
+// --- Components ---
 const HeaderAboute = () => (
   <section className="container mx-auto text-center py-8 px-4 sm:px-6 lg:px-0">
     <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-secondary py-2">
@@ -72,6 +80,7 @@ const ExperienceImages = ({ data }) => (
         key={i}
         src={item.src}
         alt={item.alt}
+        onError={() => notifyError(`Failed to load image: ${item.alt}`)}
         className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-2xl shadow-lg"
       />
     ))}
@@ -93,51 +102,38 @@ const ExperienceCards = ({ data }) => (
   </section>
 );
 
-const AboutRestaurant = ({ data }) => (
-  <section className="container mx-auto grid gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:px-0 mt-16">
-    <img
-      src={data.image}
-      alt="entry"
-      className="w-full h-64 sm:h-80 md:h-[380px] object-cover rounded-2xl shadow-lg"
-    />
-    <div className="flex flex-col justify-center">
-      <h3 className="text-secondary font-semibold text-sm sm:text-base">
-        {data.heading}
-      </h3>
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug mt-2 sm:mt-3">
-        {data.title}
-      </h2>
-      <p className="text-neutral-300 mt-2 sm:mt-4 text-sm sm:text-base">
-        {data.description}
-      </p>
-      <ul className="mt-4 sm:mt-5 space-y-2 text-neutral-300 text-sm sm:text-base">
-        {data.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2">
-            {feature.icon} {feature.text}
-          </li>
-        ))}
-      </ul>
-      <div className="mt-4 sm:mt-6 flex items-center gap-4">
-        <img
-          src={data.founder.img}
-          alt={data.founder.name}
-          className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-amber-400"
-        />
-        <div>
-          <h4 className="text-sm sm:text-lg font-semibold">
-            {data.founder.name}
-          </h4>
-          <p className="text-neutral-400 text-xs sm:text-sm">
-            {data.founder.role}
-          </p>
-        </div>
+const AboutRestaurant = ({ data }) => {
+  useEffect(() => {
+    if (!data || !data.image) {
+      notifyError("About restaurant data is missing!");
+    } else {
+      notifySuccess("About restaurant loaded successfully!");
+    }
+  }, [data]);
+
+  if (!data) return null;
+
+  return (
+    <section className="container mx-auto grid gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:px-0 mt-16">
+      <img
+        src={data.image}
+        alt="entry"
+        className="w-full h-64 sm:h-80 md:h-[380px] object-cover rounded-2xl shadow-lg"
+      />
+      <div className="flex flex-col justify-center">
+        <h3 className="text-secondary font-semibold text-sm sm:text-base">
+          {data.heading}
+        </h3>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug mt-2 sm:mt-3">
+          {data.title}
+        </h2>
+        <p className="text-neutral-300 mt-2 sm:mt-4 text-sm sm:text-base">
+          {data.description}
+        </p>
       </div>
-      <button className="mt-4 sm:mt-6 btn btn-warning text-black rounded-full flex items-center gap-2 w-fit">
-        Contact With Us <ArrowRight2 variant="Bold" size={20} />
-      </button>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const TrendingFoods = ({ data }) => (
   <section className="container mx-auto px-4 sm:px-6 lg:px-0 mt-16 text-center">
@@ -155,11 +151,13 @@ const TrendingFoods = ({ data }) => (
       {data.map((item, i) => (
         <div
           key={i}
-          className="rounded-2xl overflow-hidden shadow-lg bg-base-200">
+          className="rounded-2xl overflow-hidden shadow-lg bg-base-200"
+        >
           <img
             src={item.img}
             alt={item.text}
             className="w-full h-48 sm:h-56 md:h-60 object-cover"
+            onError={() => notifyError(`Failed to load image: ${item.text}`)}
           />
           <p className="p-4 font-medium text-neutral-200 text-sm sm:text-base">
             {item.text}
@@ -182,11 +180,15 @@ const ChefsSection = ({ data }) => (
       {data.map((chef, i) => (
         <div
           key={i}
-          className="bg-base-200 rounded-2xl p-4 sm:p-6 shadow-lg flex flex-col items-center">
+          className="bg-base-200 rounded-2xl p-4 sm:p-6 shadow-lg flex flex-col items-center"
+        >
           <img
             src={chef.img}
             alt={chef.name}
             className="w-full h-52 sm:h-60 md:h-64 object-cover rounded-xl"
+            onError={() =>
+              notifyError(`Failed to load chef image: ${chef.name}`)
+            }
           />
           <h3 className="text-lg sm:text-xl font-semibold mt-2 sm:mt-4">
             {chef.role}
@@ -205,9 +207,11 @@ const ChefsSection = ({ data }) => (
   </section>
 );
 
+// --- Main AboutUs Component ---
 export default function AboutUs() {
   return (
     <div className="min-h-screen w-full text-white font-sans">
+      <Toaster />
       <HeaderAboute />
       <ExperienceImages data={experienceImagesData} />
       <ExperienceCards data={experienceCardsData} />
